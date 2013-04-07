@@ -102,6 +102,9 @@ local gzFile gz_open(path, fd, mode)
 #ifdef O_EXCL
     int exclusive = 0;
 #endif
+    /* WILLUS MOD */
+    extern void set_special_gz_init(int);
+    set_special_gz_init(0);
 
     /* check input */
     if (path == NULL)
@@ -125,6 +128,11 @@ local gzFile gz_open(path, fd, mode)
             state->level = *mode - '0';
         else
             switch (*mode) {
+            /* WILLUS MOD */
+            /* Use 's' in open string to avoid gzip header/trailer */
+            case 's':
+                set_special_gz_init(1);
+                break;
             case 'r':
                 state->mode = GZ_READ;
                 break;

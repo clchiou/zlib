@@ -5,6 +5,18 @@
 
 #include "gzguts.h"
 
+/* WILLUS MOD */
+/* 0 for normal init, 1 for non-gzip init */
+static int willus_special_init=0;
+
+void set_special_gz_init(int type);
+void set_special_gz_init(int type)
+
+    {
+    willus_special_init=type;
+    }
+
+
 /* Local functions */
 local int gz_init OF((gz_statep));
 local int gz_comp OF((gz_statep, int));
@@ -39,8 +51,13 @@ local int gz_init(state)
         strm->zalloc = Z_NULL;
         strm->zfree = Z_NULL;
         strm->opaque = Z_NULL;
+        /* WILLUS MOD */
+        ret = deflateInit2(strm, state->level, Z_DEFLATED,
+                           15 + ((willus_special_init==1)?0:16), 8, state->strategy);
+/*
         ret = deflateInit2(strm, state->level, Z_DEFLATED,
                            MAX_WBITS + 16, DEF_MEM_LEVEL, state->strategy);
+*/
         if (ret != Z_OK) {
             free(state->out);
             free(state->in);
