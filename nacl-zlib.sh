@@ -9,6 +9,10 @@
 source pkg_info
 source ../common.sh
 
+# TODO(clchiou): Build static targets for now to fix build
+# errors.  Switch to use shared library someday.
+export MAKE_TARGETS=static
+
 CustomConfigureStep() {
   Banner "Configuring ${PACKAGE_NAME}"
   ChangeDir ${NACL_PACKAGES_REPOSITORY}/${PACKAGE_DIR}
