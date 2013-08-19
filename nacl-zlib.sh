@@ -25,8 +25,9 @@ CustomPackageInstall() {
   DefaultSyncSrcStep
   CustomConfigureStep
   DefaultBuildStep
+  DefaultTranslateStep
+  DefaultValidateStep
   DefaultInstallStep
-  DefaultCleanUpStep
 }
 
 CustomPackageInstall
